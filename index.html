@@ -7,6 +7,35 @@
   <title>ALLHero</title>
   <meta name="description" content="ALLHero app">
   <meta name="author" content="SitePoint">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script src="js/jquery.validate.js"></script>
+  <script src="js/jquery.placeholder.js"></script>
+  <script src="js/jquery.form.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+  $(function(){
+    $('#contact').validate({
+      submitHandler: function(form) {
+        $(form).ajaxSubmit({
+          url: 'process.php',
+          success: function() {
+            $('#contact').hide();
+            $('#contact-form').append("<p class='thanks'>Thanks! Your request has been sent.</p>")
+          }
+        });
+      }
+    });
+  });
+  </script>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-57211930-1', 'auto');
+  ga('send', 'pageview');
+  </script>
 </head>
 
 <body bgcolor="black">
@@ -16,5 +45,20 @@
     <area id="AppStore" alt="AppStore" title="AppStore" href="#" shape="rect" coords="346,436,411,502" style="outline:none;" target="_self"/>
     <area id="GooglePlay" alt="GooglePlay" title="GooglePlay" href="#" shape="rect" coords="488,438,553,507" style="outline:none;" target="_self"/>
   </map>
+  <div id="contact-form">
+    <form id="contact" method="post" action="">
+      <fieldset>
+        <input type="email" name="email" placeholder="micorreo@correo.com" title="Ingresa tu correo electrónico" class="required email">
+      </fieldset>
+    </form>
+
+  </div><!-- /end #contact-form -->
+
+  <script src="js/modernizr-min.js"></script>
+  <script>
+  if (!Modernizr.input.placeholder){
+    $('input[placeholder], textarea[placeholder]').placeholder();
+  }
+  </script>
 </body>
 </html>
