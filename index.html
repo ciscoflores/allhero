@@ -25,8 +25,8 @@
   </script>
 </head>
 
-<body bgcolor="black">
-  <img src="heroapp.jpg" width="1300" height="1502" alt="ALLHero" usemap="#downloadmap">
+<body bgcolor="#23282C">
+  <img src="heroapp.jpg" align="center" alt="ALLHero" usemap="#downloadmap">
   <map name="downloadmap">
     <area id="AppStore" alt="AppStore" title="AppStore" href="#" shape="rect" coords="346,436,411,502" style="outline:none;" onClick="_gaq.push(['_trackEvent', 'Download', 'AppStore', '']);"/>
     <area id="GooglePlay" alt="GooglePlay" title="GooglePlay" href="#" shape="rect" coords="488,438,553,507" style="outline:none;" target="_self" onClick="_gaq.push(['_trackEvent', 'Download', 'GooglePlay', '']);"/>
@@ -40,7 +40,7 @@
     alertify.set({
       labels : {
         ok     : "OK",
-        cancel : "Cancel"
+        cancel : ""
       },
       delay : 5000,
       buttonReverse : false,
@@ -50,6 +50,7 @@
 
   // ==============================
   // Standard Dialogs
+
   $("#AppStore").on( 'click', function () {
     reset();
     alertify.prompt("La App pronto estará lista. Suscribete para manternerte informado.", function (e, str) {
