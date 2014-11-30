@@ -8,6 +8,11 @@
   <meta name="description" content="ALLHero app">
   <meta name="author" content="SitePoint">
   <link rel="stylesheet" href="css/style.css">
+  <script src="lib/alertify.min.js"></script>
+  <!-- include the core styles -->
+  <link rel="stylesheet" href="css/alertify.core.css" />
+  <!-- include a theme, can be included into the core instead of 2 separate files -->
+  <link rel="stylesheet" href="css/alertify.default.css" />
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -16,22 +21,79 @@
 
   ga('create', 'UA-57211930-1', 'auto');
   ga('send', 'pageview');
+
   </script>
 </head>
 
 <body bgcolor="black">
-  <script src="js/scripts.js"></script>
   <img src="heroapp.jpg" width="1300" height="1502" alt="ALLHero" usemap="#downloadmap">
   <map name="downloadmap">
-    <area id="AppStore" alt="AppStore" title="AppStore" href="#" shape="rect" coords="346,436,411,502" style="outline:none;" target="_self"/>
-    <area id="GooglePlay" alt="GooglePlay" title="GooglePlay" href="#" shape="rect" coords="488,438,553,507" style="outline:none;" target="_self"/>
+    <area id="AppStore" alt="AppStore" title="AppStore" href="#" shape="rect" coords="346,436,411,502" style="outline:none;" onClick="_gaq.push(['_trackEvent', 'Download', 'AppStore', '']);"/>
+    <area id="GooglePlay" alt="GooglePlay" title="GooglePlay" href="#" shape="rect" coords="488,438,553,507" style="outline:none;" target="_self" onClick="_gaq.push(['_trackEvent', 'Download', 'GooglePlay', '']);"/>
   </map>
 
-    <form class="suscribe-form" action="https://getsimpleform.com/messages?form_api_token=d0016c0fe5e2caca9c8d32401e626aad" method="post">
-      <fieldset>
-        <input type='hidden' name='redirect_to' value='http://allhero.co' />
-        <input type="email" name="email" placeholder="micorreo@correo.com" title="Ingresa tu correo electrónico" class="required email">
-      </fieldset>
-    </form>
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="lib/alertify.min.js"></script>
+  <script>
+  function reset () {
+    $("#toggleCSS").attr("href", "themes/alertify.default.css");
+    alertify.set({
+      labels : {
+        ok     : "OK",
+        cancel : "Cancel"
+      },
+      delay : 5000,
+      buttonReverse : false,
+      buttonFocus   : "ok"
+    });
+  }
+
+  // ==============================
+  // Standard Dialogs
+  $("#AppStore").on( 'click', function () {
+    reset();
+    alertify.prompt("La App pronto estará lista. Suscribete para manternerte informado.", function (e, str) {
+      if (e) {
+        $.ajax({
+          dataType: 'jsonp',
+          url: "http://getsimpleform.com/messages/ajax?form_api_token=d0016c0fe5e2caca9c8d32401e626aad",
+          data: {
+            email: str,
+          }
+        }).done(function() {
+          //callback which can be used to show a thank you message
+          //and reset the form
+          alertify.success("Gracias por suscribirte!");
+        });
+      } else {
+        alertify.error("Esperemos vuelvas pronto!");
+      }
+    }, "micorreo@correo.com");
+    return false;
+  });
+
+  $("#GooglePlay").on( 'click', function () {
+    reset();
+    alertify.prompt("La App pronto estará lista. Suscribete para manternerte informado.", function (e, str) {
+      if (e) {
+        $.ajax({
+          dataType: 'jsonp',
+          url: "http://getsimpleform.com/messages/ajax?form_api_token=d0016c0fe5e2caca9c8d32401e626aad",
+          data: {
+            email: str,
+          }
+        }).done(function() {
+          //callback which can be used to show a thank you message
+          //and reset the form
+          alertify.success("Gracias por suscribirte!");
+        });
+      } else {
+        alertify.error("Esperemos vuelvas pronto!");
+      }
+    }, "micorreo@correo.com");
+    return false;
+  });
+
+  </script>
 </body>
 </html>
